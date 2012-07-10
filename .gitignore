@@ -1,0 +1,25 @@
+# Compiler output files
+*.o
+*.a
+# Stuff from autotools
+config.log
+config.status
+configure
+compile
+depcomp
+install-sh
+missing
+stamp-h1
+.deps
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache
+config.h
+config.h.in
+config.h.in~
+# data files
+*.out
+*.dat
+# Executables
+pythagoras
