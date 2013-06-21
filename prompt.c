@@ -48,13 +48,9 @@
 struct _cmd_def {
   char cmd[NUM_CMDS][MAX_CMD_LEN];
   int len[NUM_CMDS];
-  void* (*funcs[NUM_CMDS])( void*, void* );
+  void* (*funcs[NUM_CMDS])( void* );
   int size;
 } typedef cmd_def;
-
-struct _cmd_info {
-  int i;
-} typedef cmd_info;
 
 cmd_def cmds = {
   {"help", "exit"},
@@ -62,8 +58,6 @@ cmd_def cmds = {
   { help_func, exit_func, },
   2
 };
-
-
 
 /****************** functions ***********************/
 
@@ -98,6 +92,27 @@ char *get_input( FILE *fp )
   return buffer;
 }
 
+int execute_command( cmd_info *cmd )
+{
+  switch( cmd->i )
+  {
+    case -1:
+      pythagoras_os_cmd( (void *)cmd );
+      break;
+    case 0:
+    case 1:
+      if( cmds.funcs[cmd->i]( (void*) cmd ) )
+        return 1;
+      else
+        return 0;
+      break;
+    default:
+      return 0;
+  }
+
+  return 1;
+}
+
 /*
  * parse_input
  *
@@ -106,14 +121,14 @@ char *get_input( FILE *fp )
  * Returns non-zero code indicating the result.
  * Returns zero on exit.
  */
-int parse_input( char *input )
+cmd_info *parse_input( char *input )
 {
   char *s = input;
   /* Clear whitespace */
   while( isspace(*s) && *s != '\n' ) s++;
   /* They hit enter and nothing else, do nothing */
   if( *s == '\n' )
-    return 1;
+    return NULL;
 
   cmd_info *info = NULL;
   int l = strlen( s );
@@ -131,29 +146,35 @@ int parse_input( char *input )
   }
 
   cmd = calloc( i+1, sizeof(char) );
+  info = calloc( 1, sizeof(cmd_info) );
 
   strncpy( cmd, s, i );
+  info->args = cmd;
 
   for( j = 0; j < cmds.size; j++ )
   {
     if( 0 == strcmp( cmds.cmd[j], cmd ) )
     {
-      info = (cmd_info*) cmds.funcs[j]( (void*) cmd, (void*)s );
+      info->i = j;
+      return info;
+      //info = (cmd_info*) cmds.funcs[j]( (void*) cmd, (void*)s );
 
-      free( cmd );
+      //free( cmd );
 
       /*This will be NULL only if the exit command was given*/
-      if( !info )
-        return 0;
+      //if( !info )
+      //  return 0;
 
-      return 1;
+      //return 1;
     }
   }
+  info->i = -1;
+  return info;
   /*printf("pythagoras: '%s': command not found\n", cmd );*/
-  pythagoras_os_cmd( (void *)cmd, (void *)s );
+  //pythagoras_os_cmd( (void *)cmd, (void *)s );
 
-  free( cmd );
-  return -1;
+  //free( cmd );
+  //return -1;
 }
 
 /*

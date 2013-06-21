@@ -45,11 +45,13 @@
  * General function to implement an OS command for pythagoras.
  * Called directly my the individual command functions.
  */
-void *pythagoras_os_cmd( void* cmd, void* args )
+void *pythagoras_os_cmd( void* cmd0 )
 {
-  char *cmd_str = (char*)cmd;
+  cmd_info *cmd = (cmd_info *) cmd0;
+  char *cmd_str = (char*) cmd->args;
   int pid = 0, status = 0;
   char **cmds = NULL;
+  char *args = (char *) cmd->args;
 
 #if DEBUG_PARSING
   int num_cmds = 0;
@@ -82,12 +84,12 @@ void *pythagoras_os_cmd( void* cmd, void* args )
 
 /******* Other commands *******/
 
-void *exit_func( void *cmd, void *args )
+void *exit_func( void *cmd )
 {
   return NULL;
 }
 
-void *help_func( void *cmd, void *args )
+void *help_func( void *cmd )
 {
   fprintf( stdout,"Pythagoras, version 0.01. A Pythagorean adventure!\n"
                   "\nCommands:\n"

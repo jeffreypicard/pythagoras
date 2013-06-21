@@ -38,13 +38,18 @@ int main( int argc, char **argv )
 {
   int c = 1;
   char *buf = NULL;
+  cmd_info *info;
   while( c )
   {
     print_prompt();
 
     buf = get_input( stdin );
 
-    c = parse_input( buf );
+    info = parse_input( buf );
+
+    if( !info )
+      continue;
+    c = execute_command( info );
 
     free( buf );
   }

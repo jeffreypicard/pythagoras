@@ -30,17 +30,24 @@
  * of the authors and should not be interpreted as representing official policies, 
  * either expressed or implied, of the FreeBSD Project.
  */
+
 /* prompt.c */
+struct _cmd_info {
+  int i;
+  void *args;
+} typedef cmd_info;
+
 void print_prompt( void );
 char *get_input( FILE* );
-int parse_input( char* );
+cmd_info *parse_input( char* );
 int parse_delimited_cmds( char *, char, char *** );
 void print_array_strings( char **, int );
 void delete_cmds( char ** );
+int execute_command( cmd_info * );
 
-void *pythagoras_os_cmd( void*, void* );
-void *exit_func( void*, void* );
-void *help_func( void *, void * );
+void *pythagoras_os_cmd( void * );
+void *exit_func( void * );
+void *help_func( void * );
 
 /* Macros */
 #define EXIT_WITH_ERROR( ... ) do {   \
