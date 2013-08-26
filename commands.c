@@ -73,7 +73,7 @@ void *pythagoras_os_cmd( void* cmd0 )
   {
     wait( &status );
     if( WIFEXITED(status) && WEXITSTATUS(status) == CMD_ERR_VAL )
-      fprintf( stderr, "pythagoras: '%s': command not found\n", (char*)cmd );
+      fprintf( stderr, "pythagoras: '%s': command not found\n", (char*)cmd_str );
   }
 
   delete_cmds( cmds );

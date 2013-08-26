@@ -15,5 +15,5 @@ CFLAGS = -g -std=c99 -pedantic -Wall -O3 ${INCS} ${CPPFLAGS}
 LDFLAGS = -s ${LIBS}
 
 # compiler and linker
-CC = clang
+CC = gcc
 LD = ${CC}
