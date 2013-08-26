@@ -1,0 +1,39 @@
+Game world
+  Tile for each space in the world
+    Attributes:
+      items
+      description
+      can be moved to
+      events triggered
+      destructible/indestrucible
+      register new commands
+  Time
+    Current time
+    Events triggered at certain times
+    Real time / move based time
+  Current State
+    Character location
+    Time
+    Events triggered
+  Events
+    Random events
+    Description
+    Effect
+
+Character
+  Name
+  Sex
+  Race
+  Age
+  Height
+  Weight
+  Description
+  Health
+  Inventory
+    slots / weight carryable
+    items
+
+Item
+  description
+  size / weight
+  uses

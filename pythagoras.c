@@ -3,7 +3,7 @@
  *
  * Main program.
  *
- * Copyright (c) 2012, Jeffrey Picard
+ * Copyright (c) 2012-2013, Jeffrey Picard
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,16 +39,29 @@ int main( int argc, char **argv )
   int c = 1;
   char *buf = NULL;
   cmd_info *info;
+
+  /* TODO:
+   * world_t *world = NULL;
+   * world_init( &world );
+   * world_intro( world );
+   */
   while( c )
   {
     print_prompt();
 
     buf = get_input( stdin );
+    /* TODO:
+     * append_history( buf )
+     */
 
     info = parse_input( buf );
 
     if( !info )
       continue;
+
+    /* TODO:
+     * c = execute_command( info, world );
+     */
     c = execute_command( info );
 
     free( buf );

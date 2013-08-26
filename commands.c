@@ -3,7 +3,7 @@
  *
  * Code for the commands implemented for pythagoras.
  *
- * Copyright (c) 2012, Jeffrey Picard
+ * Copyright (c) 2012-2013, Jeffrey Picard
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
